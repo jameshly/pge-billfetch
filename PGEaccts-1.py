@@ -9,6 +9,8 @@ import os.path
 from selenium import webdriver
 from pyvirtualdisplay import Display
 
+downloadpath = ""
+
 #start the display
 display = Display(visible=0, size=(1920, 1080))
 display.start()
@@ -16,7 +18,7 @@ display.start()
 mime_types = "application/pdf,application/vnd.adobe.xfdf,application/vnd.fdf,application/vnd.adobe.xdp+xml"
 fp = webdriver.FirefoxProfile()
 fp.set_preference("browser.download.folderList", 2)
-fp.set_preference("browser.download.dir", '<INSERT DOWNLOAD PATH HERE>)
+fp.set_preference("browser.download.dir", downloadpath)
 fp.set_preference("browser.download.manager.showWhenStarting", False)
 #disables confirmation dialog for pdf files
 fp.set_preference("browser.helperApps.neverAsk.saveToDisk", mime_types)
@@ -49,7 +51,7 @@ for li in lis:
     act = li.find_element_by_tag_name("a")
     accounts.append(act.get_attribute('innerHTML')[0:12])
 #downlaods bills HERE
-for account in accounts:    
+for account in accounts:
     try:
 	time.sleep(10)
         driver.get("https://m.pge.com/index.html#myaccount/dashboard/billing/history/" + account)#yay for convienent URLs
@@ -67,8 +69,8 @@ for account in accounts:
         print "Account # " + account + " didn't work..."
         continue
 #organize each pdf to a specified folder
-os.chdir("PATH WHERE FILES WERE DOWNLOADED")
+os.chdir(downloadpath)
 for file in glob.glob("*.pdf"):
 	print (file)[0:4]
-	os.rename("PATH WHERE FILES WERE DOWNLOADED" + file, "NEW PATH"+(file)[0:4]+"/"+file) #[0:4] gives me the last 4 digits of the account number or easier folder organization
+	os.rename(downloadpath + file, downloadpath+(file)[0:4]+"/"+file) #[0:4] gives me the last 4 digits of the account number or easier folder organization
 driver.quit()
