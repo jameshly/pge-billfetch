@@ -1,4 +1,4 @@
-# Project Title
+# PGE Bill Fetcher
 
 This script was developed as a stop-gap solution to download and archive PG&E bills for all of my university's properties while I get the OAuth credentials secured to use PG&E's official API to pull data.
 
