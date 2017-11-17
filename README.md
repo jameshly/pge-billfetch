@@ -13,11 +13,35 @@ This script is self-contained so long as you specify the appropriate folder name
 
 ### Prerequisites
 
-This script 
+This script has a few dependencies that need to be installed.
+
 
 ```
-Give examples
+sudo apt-get install xvfb
 ```
+Please be sure to download the latest version of Firefox geckodriver. In linux, this could be done by copying the extracted geckodriver file and copying it into the `/usr/local/bin/` folder.
+
+
+If you do not have pip installed, the linux command for installing it is:
+
+
+
+```
+sudo apt-get install python-pip
+```
+
+The python packages we will be using in this script are Selenium and pyvirutaldisplay. Selenium powers the whole web scraping process, and pyvirtualdisplay allows the script to run headless (for ssh and performance reasons).
+These are installed by running
+```
+pip install selenium`
+```
+and
+```
+pip install pyvirtualdisplay
+```
+
+you also need to run
+
 
 ### Installing
 
