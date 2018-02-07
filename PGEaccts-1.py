@@ -18,8 +18,39 @@ def wait_until_visible_then_click(element):
     element = WebDriverWait(driver,5,poll_frequency=.2).until(
         EC.visibility_of(element))
     element.click()
+def bill_storing():
+os.chdir("PATH WHERE FILES WERE DOWNLOADED")
+for file in glob.glob("*.pdf"):
+	print (file)[0:4]
+	os.rename("PATH WHERE FILES WERE DOWNLOADED" + file, "NEW PATH"+(file)[0:4]+"/"+file) #[0:4] gives me the last 4 digits of the account number or easier folder organization
+driver.quit()
 def bill_download(driver):
+	"""stores the bills of every account into specified folder"""
+	for account in accounts:
+    try:
+	time.sleep(10)
+        driver.get("https://m.pge.com/index.html#myaccount/dashboard/billing/history/" + account)#yay for convienent URLs
+        time.sleep(10)
+        hrefs = driver.find_elements_by_id("utag-view-pay-view-bill-pdf")
+        for href in hrefs:
+    		try:
+                	wait_until_visible_then_click(href)
+                	print "downloading bill... for account#: " + account
+                	time.sleep(15)
+    		except:
+    			print "Account# " + account + " does not work, please try again later. Moving on..."
+                continue
+    except:
+        print "Account # " + account + " didn't work..."
+        continue
 def find_accounts(driver):
+	"""find all accounts in PGE"""
+	accounts = []
+	dropdown = driver.find_element_by_id("accountListElement")
+	lis = dropdown.find_elements_by_tag_name("li")
+	for li in lis:
+		act = li.find_element_tag_name("a")
+		accounts.append(act.get_attribute('innerHTML')[0:12])
 def login(driver):
 """log into PG&E"""
     driver.get("https://www.pge.com/")
