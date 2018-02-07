@@ -1,6 +1,10 @@
 """
 This python program should go through the PG&E website and automatically
     download all the bills from each account
+	
+TODO:
+-Create condition if user and pass do not work
+-Finish bill_storing function
 """
  import time, os, glob
  from selenium import webdriver
@@ -54,8 +58,8 @@ def find_accounts(driver):
 def login(driver):
 """log into PG&E"""
     driver.get("https://www.pge.com/")
-    user = ("username")
-    passwd = ("password")
+    user = raw_input("Username: ")
+    passwd = raw_input("Password: ")
     usr = driver.find_element_by_id("username")
     usr.send_keys(user)
     pwd = driver.find_element_by_id("password")
